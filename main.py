@@ -20,6 +20,20 @@ class Rational:
         self.n //= common_divisor
         self.d //= common_divisor
 
+    def __add__(self, other):
+        if isinstance(other, Rational):
+            numerator = self.n * other.d + other.n * self.d
+            denominator = self.d * other.d
+            return Rational(numerator, denominator)
+        elif isinstance(other, int):
+            numerator = self.n + other * self.d
+            return Rational(numerator, self.d)
+        else:
+            raise RationalValueError("Addition requires Rational or integer")
+
+    def __radd__(self, other):
+        return self + other
+
     def __call__(self):
         return self.n / self.d
 
